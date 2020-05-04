@@ -5,18 +5,18 @@ struct node {
 
     struct node *next;
     struct node *prev;
-    char *value;
+    char value;
 
 };
 
 typedef struct node node;
 
 void print_list(node *head) {
-    while(head->next) {
-        printf("%s\n", head->value);
+    while(head) {
+        printf("%c -> ", head->value);
         head = head->next;
     }
-    printf("%s\n", head->value);
+    printf("NULL\n");
 }
 
 void reverse_list(node *head) {
@@ -32,9 +32,11 @@ void reverse_list(node *head) {
 
 }
 
-node * create_node(char * val_ptr) {
+node * create_node(char  val_) {
     node * n = malloc(sizeof(node));
-    n->value = val_ptr;
+    n->next = NULL;
+    n->prev = NULL;
+    n->value = val_;
     return n;
 }
 
@@ -45,9 +47,9 @@ void destroy_node(node * n) {
 
 int main() {
 
-    node a = {NULL, NULL, "a"}; 
-    node b = {NULL, NULL, "b"};
-    node c = {NULL, NULL, "c"};
+    node a = {NULL, NULL, 'a'}; 
+    node b = {NULL, NULL, 'b'};
+    node c = {NULL, NULL, 'c'};
 
     a.next = &b;
     b.prev = &a;
@@ -66,7 +68,7 @@ int main() {
     print_list(&a);
     printf("\n");
 
-    node *d = create_node("d");
+    node *d = create_node('d');
     print_list(d);
     destroy_node(d);
 
